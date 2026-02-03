@@ -3,1062 +3,935 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundo Sabedoria Prática ESG | O Legado da Virtude</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind -->
+    <title>Fundo Sabedoria Prática ESG - Transforme Imposto em Legado</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
-    <!-- Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                        display: ['Cinzel', 'serif'],
-                    },
-                    colors: {
-                        'ruby': '#9f1239',
-                        'ruby-dark': '#4c0519',
-                        'ruby-light': '#e11d48',
-                        'gold': '#d4af37',
-                        'gold-light': '#f4d03f',
-                        'obsidian': '#0a0a0f',
-                        'crimson': '#dc2626',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                        'shimmer': 'shimmer 2s linear infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        glow: {
-                            '0%': { boxShadow: '0 0 20px rgba(220, 38, 38, 0.5)' },
-                            '100%': { boxShadow: '0 0 40px rgba(220, 38, 38, 0.8), 0 0 60px rgba(212, 175, 55, 0.4)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% 0' },
-                            '100%': { backgroundPosition: '200% 0' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --ruby-primary: #DC143C;
+            --ruby-dark: #8B0000;
+            --ruby-light: #FF6B6B;
+            --ruby-pulse: rgba(220, 20, 60, 0.4);
+            --gold: #D4AF37;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
         }
         
         body {
-            background: #0a0a0f;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darker-bg);
+            color: #f5f5f5;
             overflow-x: hidden;
-            cursor: none;
         }
         
-        /* Custom Cursor */
-        .cursor-dot,
-        .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 9999;
-            pointer-events: none;
+        h1, h2, h3, h4, .serif {
+            font-family: 'Cormorant Garamond', serif;
         }
         
-        .cursor-dot {
-            width: 5px;
-            height: 5px;
-            background: #dc2626;
+        .ruby-glow {
+            box-shadow: 0 0 60px rgba(220, 20, 60, 0.6), 0 0 100px rgba(220, 20, 60, 0.3);
         }
         
-        .cursor-outline {
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(220, 38, 38, 0.5);
-            transition: all 0.2s ease;
+        .ruby-text-glow {
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 40px rgba(220, 20, 60, 0.4);
         }
         
-        .cursor-outline.hover {
-            width: 60px;
-            height: 60px;
-            background: rgba(220, 38, 38, 0.1);
-            border-color: #d4af37;
+        .ruby-gradient {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 50%, #4a0404 100%);
         }
         
-        /* Grain */
-        .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-        
-        /* Glass */
-        .glass-ruby {
-            background: rgba(159, 18, 57, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(220, 38, 38, 0.2);
-        }
-        
-        .glass-ruby:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            background: rgba(159, 18, 57, 0.15);
-        }
-        
-        /* Text Effects */
-        .text-glow {
-            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #d4af37 0%, #dc2626 50%, #9f1239 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .ruby-shine {
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
             background-size: 200% 200%;
-            animation: gradient-shift 8s ease infinite;
+            animation: shine 3s infinite;
         }
         
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
         
-        /* Video Container */
-        .video-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.5);
+        @keyframes pulse-ruby {
+            0%, 100% { box-shadow: 0 0 20px rgba(220, 20, 60, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(220, 20, 60, 0.8), 0 0 100px rgba(220, 20, 60, 0.4); }
         }
         
-        .video-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, rgba(220, 38, 38, 0.3), rgba(212, 175, 55, 0.2));
-            z-index: 1;
-            pointer-events: none;
+        .animate-pulse-ruby {
+            animation: pulse-ruby 2s infinite;
         }
         
-        /* Lion/Bull Symbolism */
-        .beast-frame {
-            position: relative;
-            border: 2px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            padding: 20px;
-            background: radial-gradient(circle, rgba(220, 38, 38, 0.2) 0%, transparent 70%);
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(220, 20, 60, 0.2);
         }
         
-        /* Territory Cards */
+        .input-field {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(220, 20, 60, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: var(--ruby-primary);
+            box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
+            outline: none;
+        }
+        
         .territory-card {
-            background: linear-gradient(135deg, rgba(159, 18, 57, 0.1) 0%, rgba(10, 10, 15, 0.9) 100%);
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, rgba(20,20,20,0.9) 0%, rgba(10,10,10,0.9) 100%);
+            border: 1px solid rgba(220, 20, 60, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .territory-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #d4af37;
-            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+            border-color: var(--ruby-primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(220, 20, 60, 0.2);
         }
         
-        /* Hub Grid */
-        .hub-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
         }
         
-        /* Animated Border */
-        .animated-border {
-            position: relative;
-            background: linear-gradient(60deg, #0a0a0f, #1a1a2e, #0a0a0f);
-            background-size: 300% 300%;
-            animation: animatedgradient 3s ease alternate infinite;
-        }
-        
-        @keyframes animatedgradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #0a0a0f;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #dc2626, #d4af37);
-            border-radius: 5px;
-        }
-        
-        /* Mobile Menu */
-        .menu-mobile {
-            clip-path: circle(0% at calc(100% - 40px) 40px);
-            transition: clip-path 0.6s ease-in-out;
-        }
-        
-        .menu-mobile.active {
-            clip-path: circle(150% at calc(100% - 40px) 40px);
-        }
-        
-        /* Sacred Geometry Background */
-        .sacred-geometry {
+        .ruby-particle {
             position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--ruby-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ruby-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(220, 20, 60, 0.5);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            opacity: 0.1;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .geometric-bg {
             background-image: 
-                repeating-linear-gradient(60deg, transparent, transparent 50px, rgba(220, 38, 38, 0.1) 50px, rgba(220, 38, 38, 0.1) 51px),
-                repeating-linear-gradient(-60deg, transparent, transparent 50px, rgba(212, 175, 55, 0.1) 50px, rgba(212, 175, 55, 0.1) 51px);
+                radial-gradient(circle at 20% 50%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(220, 20, 60, 0.05) 0%, transparent 50%);
+        }
+        
+        .quote-mark {
+            font-size: 6rem;
+            line-height: 1;
+            opacity: 0.2;
+            color: var(--ruby-primary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .floating-ruby {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .tab-active {
+            border-bottom: 3px solid var(--ruby-primary);
+            color: var(--ruby-primary);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--ruby-dark) 0%, var(--ruby-primary) 100%);
+            height: 4px;
+            border-radius: 2px;
+            transition: width 1s ease;
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-crimson selection:text-white">
-
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
-    
-    <!-- Custom Cursor -->
-    <div class="cursor-dot hidden md:block"></div>
-    <div class="cursor-outline hidden md:block"></div>
+<body class="geometric-bg">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-500" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 py-6">
-            <div class="flex justify-between items-center">
-                <a href="#" class="group flex items-center space-x-3 magnetic-btn">
-                    <div class="beast-frame w-14 h-14 flex items-center justify-center">
-                        <i data-lucide="gem" class="text-gold w-8 h-8"></i>
+    <nav class="fixed w-full z-50 glass-panel border-b border-red-900/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 ruby-gradient rounded-lg flex items-center justify-center animate-pulse-ruby">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 12l10 10 10-10L12 2zm0 3.5L18.5 12 12 18.5 5.5 12 12 5.5z"/>
+                        </svg>
                     </div>
-                    <div>
-                        <span class="text-xl font-display font-bold text-white block leading-none tracking-wider">SABEDORIA</span>
-                        <span class="text-xs text-crimson font-bold tracking-[0.3em] uppercase">Prática ESG</span>
-                    </div>
-                </a>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#visao" class="text-sm text-gray-400 hover:text-gold transition-colors magnetic-btn">A Visão</a>
-                    <a href="#territorios" class="text-sm text-gray-400 hover:text-gold transition-colors magnetic-btn">Territórios</a>
-                    <a href="#pilares" class="text-sm text-gray-400 hover:text-gold transition-colors magnetic-btn">3 Pilares</a>
-                    <a href="#mulheres" class="text-sm text-crimson hover:text-red-400 transition-colors magnetic-btn font-medium">Liderança Feminina</a>
-                    <a href="#hub" class="text-sm text-gray-400 hover:text-gold transition-colors magnetic-btn">Hub</a>
-                    <a href="#contato" class="magnetic-btn bg-gradient-to-r from-crimson to-ruby hover:from-red-600 hover:to-red-800 text-white px-6 py-3 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-crimson/30">
-                        Investir
-                    </a>
+                    <span class="serif text-2xl font-bold text-white tracking-wide">Sabedoria<span class="text-red-500">Prática</span>ESG</span>
                 </div>
                 
-                <button class="md:hidden text-white" id="menuToggle">
-                    <i data-lucide="menu" class="w-8 h-8"></i>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="nav-link text-gray-300 hover:text-white transition-colors">Sobre</a>
+                    <a href="#territorios" class="nav-link text-gray-300 hover:text-white transition-colors">Territórios</a>
+                    <a href="#cadastro" class="nav-link text-gray-300 hover:text-white transition-colors">Cadastrar Projeto</a>
+                    <a href="#apoiar" class="nav-link text-gray-300 hover:text-white transition-colors">Apoiar</a>
+                    <button onclick="openModal('loginModal')" class="px-6 py-2 border border-red-600 text-red-500 hover:bg-red-600 hover:text-white transition-all rounded-full">Área Restrita</button>
+                </div>
+                
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                 </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div class="menu-mobile fixed inset-0 bg-obsidian z-40 flex items-center justify-center md:hidden">
-            <div class="text-center space-y-8">
-                <a href="#visao" class="block text-3xl font-display text-white hover:text-gold transition-colors">A Visão</a>
-                <a href="#territorios" class="block text-3xl font-display text-white hover:text-gold transition-colors">Territórios</a>
-                <a href="#pilares" class="block text-3xl font-display text-white hover:text-gold transition-colors">3 Pilares</a>
-                <a href="#mulheres" class="block text-3xl font-display text-crimson transition-colors">Liderança Feminina</a>
-                <a href="#hub" class="block text-3xl font-display text-white hover:text-gold transition-colors">Hub</a>
-                <a href="#contato" class="inline-block bg-crimson text-white px-8 py-4 rounded-full text-xl font-bold">Investir Agora</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Video -->
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 bg-black/95 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#sobre" onclick="toggleMobileMenu()" class="text-2xl text-white hover:text-red-500">Sobre</a>
+            <a href="#territorios" onclick="toggleMobileMenu()" class="text-2xl text-white hover:text-red-500">Territórios</a>
+            <a href="#cadastro" onclick="toggleMobileMenu()" class="text-2xl text-white hover:text-red-500">Cadastrar Projeto</a>
+            <a href="#apoiar" onclick="toggleMobileMenu()" class="text-2xl text-white hover:text-red-500">Apoiar</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <!-- Background Elements -->
-        <div class="absolute inset-0">
-            <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-crimson/20 rounded-full blur-[150px] animate-pulse-slow"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-ruby/20 rounded-full blur-[150px] animate-pulse-slow" style="animation-delay: 2s;"></div>
-            <div class="sacred-geometry"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-            <!-- Left: Content -->
-            <div class="order-2 lg:order-1 text-center lg:text-left">
-                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-ruby border border-crimson/30 mb-6">
-                    <span class="w-2 h-2 bg-crimson rounded-full animate-pulse"></span>
-                    <span class="text-crimson text-xs font-bold tracking-widest uppercase">O Legado da Virtude</span>
-                </div>
-                
-                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                    <span class="block">Sabedoria</span>
-                    <span class="gradient-text">Prática ESG</span>
-                </h1>
-                
-                <p class="text-xl text-gray-300 mb-8 leading-relaxed font-serif italic">
-                    "Mais preciosa que os rubis, a sabedoria guia a gestão virtuosa que transforma tributos em restauração de vidas e comunidades."
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="#territorios" class="magnetic-btn group relative px-8 py-4 bg-gradient-to-r from-crimson to-ruby text-white rounded-full font-bold text-lg overflow-hidden transition-all hover:scale-105 shadow-xl shadow-crimson/30">
-                        <span class="relative z-10 flex items-center space-x-2">
-                            <span>Descobrir Territórios</span>
-                            <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
-                        </span>
-                    </a>
-                    
-                    <a href="#visao" class="magnetic-btn px-8 py-4 glass-ruby text-white rounded-full font-medium text-lg hover:bg-white/5 transition-all border border-crimson/30">
-                        Nossa Estratégia
-                    </a>
-                </div>
-                
-                <div class="mt-12 flex items-center justify-center lg:justify-start space-x-8">
-                    <div class="text-center">
-                        <div class="text-3xl font-display font-bold text-gold">R$25M</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider">Meta de Captação</div>
-                    </div>
-                    <div class="h-12 w-px bg-gradient-to-b from-crimson to-gold"></div>
-                    <div class="text-center">
-                        <div class="text-3xl font-display font-bold text-crimson">100%</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider">Equity-Free</div>
-                    </div>
-                    <div class="h-12 w-px bg-gradient-to-b from-crimson to-gold"></div>
-                    <div class="text-center">
-                        <div class="text-3xl font-display font-bold text-gold">3</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider">Pilares ESG</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Right: Video -->
-            <div class="order-1 lg:order-2">
-                <div class="video-container aspect-[9/16] max-w-md mx-auto relative group cursor-pointer" onclick="document.getElementById('heroVideo').play()">
-                    <video id="heroVideo" class="w-full h-full object-cover" loop muted playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 1920'%3E%3Crect fill='%239f1239' width='1080' height='1920'/%3E%3C/svg%3E">
-                        <source src="https://cdn.discordapp.com/attachments/123456789/123456789/sabedoria_pratica_esg.mp4" type="video/mp4">
-                    </video>
-                    
-                    <!-- Play Overlay -->
-                    <div class="absolute inset-0 flex items-center justify-center z-10 group-hover:opacity-0 transition-opacity duration-300">
-                        <div class="w-20 h-20 rounded-full bg-crimson/80 flex items-center justify-center backdrop-blur-sm border-2 border-gold animate-glow">
-                            <i data-lucide="play" class="w-8 h-8 text-white ml-1"></i>
-                        </div>
-                    </div>
-                    
-                    <!-- Decorative Elements -->
-                    <div class="absolute -inset-4 border border-crimson/20 rounded-3xl -z-10"></div>
-                    <div class="absolute -inset-8 border border-gold/10 rounded-3xl -z-10"></div>
-                </div>
-                
-                <p class="text-center text-xs text-gray-500 mt-4 italic">Toque para ativar o vídeo</p>
-            </div>
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-red-600/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-red-800/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i data-lucide="chevron-down" class="w-6 h-6 text-crimson"></i>
-        </div>
-    </section>
-
-    <!-- Visão Section -->
-    <section id="visao" class="py-32 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <span class="text-crimson text-sm font-bold tracking-[0.3em] uppercase mb-4 block">A Estratégia</span>
-                <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-6">
-                    O <span class="gradient-text">Valor</span> Invisível
-                </h2>
-                <p class="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-                    No mercado financeiro, o valor é medido pelo visível. No Fundo Sabedoria Prática ESG, medimos pela <strong class="text-gold">Sabedoria Prática</strong> — um ativo que transcende o ouro fino.
-                </p>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <div class="floating-ruby mb-8 inline-block">
+                <svg class="w-24 h-24 mx-auto text-red-600 drop-shadow-2xl" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2L4 9l8 13 8-13-8-7zm0 2.5L17.5 9 12 17.5 6.5 9 12 4.5z"/>
+                </svg>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="territory-card rounded-3xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-crimson/20 rounded-full blur-3xl"></div>
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-crimson to-ruby flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i data-lucide="gem" class="w-8 h-8 text-gold"></i>
-                        </div>
-                        <h3 class="font-display text-2xl font-bold text-white mb-4">A Sabedoria como Ativo</h3>
-                        <p class="text-gray-400 leading-relaxed mb-6">
-                            "Mais preciosa é do que os rubis, e tudo o que mais possas desejar não se pode comparar a ela." Transformamos capital em <strong class="text-gold">riqueza verdadeira</strong>.
-                        </p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Restauração Ambiental</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Inclusão Social</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Honra na Governança</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="territory-card rounded-3xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gold/20 rounded-full blur-3xl"></div>
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold to-yellow-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i data-lucide="eye" class="w-8 h-8 text-obsidian"></i>
-                        </div>
-                        <h3 class="font-display text-2xl font-bold text-white mb-4">Liderança de Olhos Abertos</h3>
-                        <p class="text-gray-400 leading-relaxed mb-6">
-                            Governança com <strong class="text-gold">integridade absoluta</strong>. Alianças acadêmicas com UNICAMP, PUC e ESPM garantem rigor técnico e inovação.
-                        </p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>Transparência máxima</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>Pesquisa científica</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>Excelência em gestão</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="territory-card rounded-3xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-crimson/20 rounded-full blur-3xl"></div>
-                    <div class="relative z-10">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-ruby to-crimson flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <i data-lucide="shield" class="w-8 h-8 text-gold"></i>
-                        </div>
-                        <h3 class="font-display text-2xl font-bold text-white mb-4">O Vigor da Proteção</h3>
-                        <p class="text-gray-400 leading-relaxed mb-6">
-                            "As suas forças são como as do boi selvagem." Nossa rede <strong class="text-gold">Disruptivos</strong> protege o que é valioso com inovação e estratégia.
-                        </p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Blindagem social</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Tecnologia de ponta</li>
-                            <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Governança ativa</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Territórios Culturais Permanentes -->
-    <section id="territorios" class="py-32 relative bg-gradient-to-b from-obsidian via-ruby-dark/20 to-obsidian">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
-                <div>
-                    <span class="text-crimson text-sm font-bold tracking-[0.3em] uppercase mb-4 block">A Casa que Voa</span>
-                    <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                        Territórios <span class="gradient-text">Culturais</span><br>Permanentes
-                    </h2>
-                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                        Não são eventos. São <strong class="text-gold">faróis na favela</strong>: pontos fixos de transformação social, cultura e geração de renda. Rodas de conversa toda terça, oficinas pra quebrar vício, atendimento pra quem precisa.
-                    </p>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-crimson/20 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="sprout" class="w-6 h-6 text-crimson"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold mb-1">Horta Hidropônica Resiliente</h4>
-                                <p class="text-gray-400 text-sm">Alimento grátis pra quem chega sem dinheiro. Tecnologia que nem chuva mata.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="graduation-cap" class="w-6 h-6 text-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold mb-1">Sala de Formação Cultural</h4>
-                                <p class="text-gray-400 text-sm">Teatro que denuncia, música que grava o grito virando rap, cultura que educa.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-crimson/20 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="rocket" class="w-6 h-6 text-crimson"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-bold mb-1">Incubadora Dupla</h4>
-                                <p class="text-gray-400 text-sm">Negócio cultural (quem canta vira produtor) e tradicional (quem costura vira marca).</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="relative">
-                    <div class="absolute inset-0 bg-gradient-to-r from-crimson to-gold rounded-3xl blur-3xl opacity-20"></div>
-                    <div class="relative glass-ruby rounded-3xl p-8 border border-crimson/30">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80" alt="Território Cultural" class="w-full h-64 object-cover rounded-2xl mb-6">
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="glass-ruby rounded-xl p-4 text-center">
-                                <i data-lucide="users" class="w-6 h-6 text-crimson mx-auto mb-2"></i>
-                                <div class="text-white font-bold">Rodas de Conversa</div>
-                                <div class="text-xs text-gray-400">Toda terça-feira</div>
-                            </div>
-                            <div class="glass-ruby rounded-xl p-4 text-center">
-                                <i data-lucide="heart-handshake" class="w-6 h-6 text-crimson mx-auto mb-2"></i>
-                                <div class="text-white font-bold">Atendimento Social</div>
-                                <div class="text-xs text-gray-400">Mulheres, LGBTQIA+, negros</div>
-                            </div>
-                            <div class="glass-ruby rounded-xl p-4 text-center">
-                                <i data-lucide="palette" class="w-6 h-6 text-gold mx-auto mb-2"></i>
-                                <div class="text-white font-bold">Oficinas Terapêuticas</div>
-                                <div class="text-xs text-gray-400">Quebra de vícios</div>
-                            </div>
-                            <div class="glass-ruby rounded-xl p-4 text-center">
-                                <i data-lucide="building-2" class="w-6 h-6 text-gold mx-auto mb-2"></i>
-                                <div class="text-white font-bold">Estrutura Fixa</div>
-                                <div class="text-xs text-gray-400">Domo, biblioteca, som</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Domos Geodésicos -->
-            <div class="glass-ruby rounded-3xl p-8 md:p-12 border border-crimson/20 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-crimson/10 rounded-full blur-3xl"></div>
-                
-                <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="font-display text-3xl font-bold text-white mb-4">Domos Geodésicos Sustentáveis</h3>
-                        <p class="text-gray-400 mb-6 leading-relaxed">
-                            Construção rápida, econômica e ecológica para comunidades rurais e urbanas. Parceria com empresas especializadas e integração com o <strong class="text-gold">Minha Casa Minha Vida</strong>.
-                        </p>
-                        
-                        <div class="space-y-3">
-                            <div class="flex items-center text-gray-300">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-crimson mr-3"></i>
-                                <span>Reforma Agrária Produtiva</span>
-                            </div>
-                            <div class="flex items-center text-gray-300">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-crimson mr-3"></i>
-                                <span>Assentamentos Autossuficientes</span>
-                            </div>
-                            <div class="flex items-center text-gray-300">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-crimson mr-3"></i>
-                                <span>Agroecologia e Preservação</span>
-                            </div>
-                            <div class="flex items-center text-gray-300">
-                                <i data-lucide="check-circle" class="w-5 h-5 text-crimson mr-3"></i>
-                                <span>Captação via Caixa Econômica</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=400&auto=format&fit=crop&q=80" alt="Domo" class="rounded-2xl w-full h-48 object-cover">
-                        <img src="https://images.unsplash.com/photo-1449156493391-d2cfa28e468b?w=400&auto=format&fit=crop&q=80" alt="Horta" class="rounded-2xl w-full h-48 object-cover">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Liderança Feminina - NOVA SEÇÃO DESTAQUE -->
-    <section id="mulheres" class="py-32 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-ruby-dark/30 via-obsidian to-ruby-dark/30"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-ruby border border-gold/30 mb-6">
-                    <i data-lucide="crown" class="w-4 h-4 text-gold"></i>
-                    <span class="text-gold text-xs font-bold tracking-widest uppercase">Nova Estrutura</span>
-                </div>
-                <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-6">
-                    Gerido por <span class="gradient-text">Mulheres</span> que Voam
-                </h2>
-                <p class="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
-                    O território só dá estrutura — elas já têm a visão. <strong class="text-gold">Mulheres líderes de comunidades e ONGs</strong> que sabem onde pousar, quem puxar e quando soltar.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <!-- Card 1 -->
-                <div class="territory-card rounded-3xl p-8 text-center group">
-                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-crimson to-ruby flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="crown" class="w-10 h-10 text-gold"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-3">Liderança Comunitária</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Mulheres que já voam nas comunidades. Elas conhecem o território, sabem quem precisa de ajuda e como chegar.
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="territory-card rounded-3xl p-8 text-center group">
-                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-gold to-yellow-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="network" class="w-10 h-10 text-obsidian"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-3">Replicação Via Rouanet</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Territórios Culturais Permanentes replicados em escala via Lei Rouanet, Fundo Municipal e imposto direcionado.
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="territory-card rounded-3xl p-8 text-center group">
-                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-ruby to-crimson flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="scale" class="w-10 h-10 text-gold"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-3">Autonomia Real</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Estrutura física (domo, biblioteca, som, advogado) + autonomia de gestão. Elas comandam, nós apoiamos.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Estrutura do Território Águia -->
-            <div class="glass-ruby rounded-3xl p-8 md:p-12 border border-gold/20 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-crimson via-gold to-crimson"></div>
-                
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="font-display text-3xl font-bold text-white mb-6 flex items-center">
-                            <span class="w-10 h-10 rounded-full bg-crimson flex items-center justify-center mr-4">
-                                <i data-lucide="bird" class="w-5 h-5 text-gold"></i>
-                            </span>
-                            Território Águia
-                        </h3>
-                        <p class="text-gray-400 mb-8 leading-relaxed">
-                            Um novo modelo de Território Cultural gerido exclusivamente por mulheres líderes. <strong class="text-gold">Casa que voa</strong> — estrutura fixa com alma nômade, adaptando-se às necessidades da comunidade.
-                        </p>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center space-x-3">
-                                    <i data-lucide="shield" class="w-5 h-5 text-crimson"></i>
-                                    <span class="text-white">Atendimento à mulher que apanhou</span>
-                                </div>
-                                <span class="text-xs text-gold px-2 py-1 bg-gold/10 rounded">Proteção</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center space-x-3">
-                                    <i data-lucide="heart" class="w-5 h-5 text-crimson"></i>
-                                    <span class="text-white">Apoio ao gay que ouviu 'anormal'</span>
-                                </div>
-                                <span class="text-xs text-gold px-2 py-1 bg-gold/10 rounded">Acolhimento</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
-                                <div class="flex items-center space-x-3">
-                                    <i data-lucide="fist" class="w-5 h-5 text-crimson"></i>
-                                    <span class="text-white">Defesa do preto que levou injúria</span>
-                                </div>
-                                <span class="text-xs text-gold px-2 py-1 bg-gold/10 rounded">Justiça</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="relative">
-                        <div class="absolute -inset-4 bg-gradient-to-r from-crimson to-gold rounded-3xl blur-2xl opacity-20"></div>
-                        <div class="relative glass-ruby rounded-2xl p-6 border border-crimson/30">
-                            <div class="aspect-video rounded-xl overflow-hidden mb-6">
-                                <img src="https://images.unsplash.com/photo-1591848478625-de43268e6fb8?w=800&auto=format&fit=crop&q=80" alt="Mulheres líderes" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-4 text-center">
-                                <div class="p-4 bg-crimson/10 rounded-xl">
-                                    <div class="text-2xl font-display font-bold text-gold">Via Rouanet</div>
-                                    <div class="text-xs text-gray-400">Captação principal</div>
-                                </div>
-                                <div class="p-4 bg-crimson/10 rounded-xl">
-                                    <div class="text-2xl font-display font-bold text-gold">Via Município</div>
-                                    <div class="text-xs text-gray-400">Fundo Municipal</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3 Pilares ESG -->
-    <section id="pilares" class="py-32 relative bg-gradient-to-b from-obsidian to-ruby-dark/20">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <span class="text-crimson text-sm font-bold tracking-[0.3em] uppercase mb-4 block">ESG Integrado</span>
-                <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-6">
-                    Os Três <span class="gradient-text">Pilares</span>
-                </h2>
-            </div>
-
-            <div class="space-y-12">
-                <!-- Governança -->
-                <div class="glass-ruby rounded-3xl p-8 md:p-12 border border-crimson/20 relative overflow-hidden group hover:border-gold/50 transition-colors">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl"></div>
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/10 text-gold text-xs font-bold mb-4">
-                                <span>01</span>
-                                <span>GOVERNANÇA</span>
-                            </div>
-                            <h3 class="font-display text-3xl font-bold text-white mb-4">Liderança de "Olhos Abertos"</h3>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Inspirados na visão de Olhos Abertos, garantimos a integridade do banco de projetos e transparência máxima. Alianças acadêmicas fortalecem o rigor técnico.
-                            </p>
-                            <ul class="space-y-2 text-sm text-gray-500">
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>UNICAMP, PUC, ESPM</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>Disruptivos Culturais</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-gold mr-2"></i>Captadores Especializados</li>
-                            </ul>
-                        </div>
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&auto=format&fit=crop&q=80" alt="Governança" class="rounded-2xl w-full h-64 object-cover">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Social -->
-                <div class="glass-ruby rounded-3xl p-8 md:p-12 border border-crimson/20 relative overflow-hidden group hover:border-crimson/50 transition-colors">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-crimson/5 rounded-full blur-3xl"></div>
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div class="order-2 md:order-1 relative">
-                            <img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&auto=format&fit=crop&q=80" alt="Social" class="rounded-2xl w-full h-64 object-cover">
-                        </div>
-                        <div class="order-1 md:order-2">
-                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-crimson/10 text-crimson text-xs font-bold mb-4">
-                                <span>02</span>
-                                <span>SOCIAL</span>
-                            </div>
-                            <h3 class="font-display text-3xl font-bold text-white mb-4">A Mão Estendida</h3>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                O tributo torna-se semente que restaura a dignidade. Moradia social, esporte, neurociência e práticas circenses em parceria com a UNICAMP.
-                            </p>
-                            <ul class="space-y-2 text-sm text-gray-500">
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Domos Geodésicos & Steel Frame</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Biomecânica + Artes Circenses</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-crimson mr-2"></i>Parkour, Hip-Hop, Pa Kua</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ambiental -->
-                <div class="glass-ruby rounded-3xl p-8 md:p-12 border border-crimson/20 relative overflow-hidden group hover:border-emerald-500/50 transition-colors">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl"></div>
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold mb-4">
-                                <span>03</span>
-                                <span>AMBIENTAL</span>
-                            </div>
-                            <h3 class="font-display text-3xl font-bold text-white mb-4">Urbanismo Sustentável</h3>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Transformamos praças degradadas em ambientes de vida. Formato CEUs com bibliotecas, hortas hidropônicas e tokens sociais de reciclagem.
-                            </p>
-                            <ul class="space-y-2 text-sm text-gray-500">
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2"></i>Revitalização de Ambientes</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2"></i>Hortas Hidropônicas</li>
-                                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-emerald-400 mr-2"></i>Tokens de Reciclagem</li>
-                            </ul>
-                        </div>
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=600&auto=format&fit=crop&q=80" alt="Ambiental" class="rounded-2xl w-full h-64 object-cover">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Hub Aberto -->
-    <section id="hub" class="py-32 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <span class="text-crimson text-sm font-bold tracking-[0.3em] uppercase mb-4 block">Participe</span>
-                <h2 class="font-display text-5xl md:text-6xl font-bold text-white mb-6">
-                    Hub <span class="gradient-text">Aberto</span>
-                </h2>
-                <p class="text-gray-400 text-xl max-w-2xl mx-auto">
-                    Conecte-se ao ecossistema. Cadastre seu território, sua ONG ou descubra incentivos disponíveis.
-                </p>
-            </div>
-
-            <div class="hub-grid max-w-5xl mx-auto">
-                <a href="#" class="glass-ruby rounded-2xl p-8 text-center hover:bg-crimson/20 transition-all group border border-crimson/20 hover:border-gold/50">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-crimson to-ruby flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="map-pin" class="w-8 h-8 text-gold"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Cadastrar Território Águia</h3>
-                    <p class="text-gray-400 text-sm">Seja um ponto fixo de transformação na sua comunidade</p>
-                </a>
-
-                <a href="#" class="glass-ruby rounded-2xl p-8 text-center hover:bg-crimson/20 transition-all group border border-crimson/20 hover:border-gold/50">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-gold to-yellow-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="heart-handshake" class="w-8 h-8 text-obsidian"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Cadastrar ONG Parceira</h3>
-                    <p class="text-gray-400 text-sm">Junte-se à rede de implementadores</p>
-                </a>
-
-                <a href="#" class="glass-ruby rounded-2xl p-8 text-center hover:bg-crimson/20 transition-all group border border-crimson/20 hover:border-gold/50">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-ruby to-crimson flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="search" class="w-8 h-8 text-gold"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Ver Incentivos</h3>
-                    <p class="text-gray-400 text-sm">Descubra as leis de incentivo disponíveis</p>
-                </a>
-
-                <a href="#" class="glass-ruby rounded-2xl p-8 text-center hover:bg-crimson/20 transition-all group border border-crimson/20 hover:border-gold/50">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-crimson to-ruby flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i data-lucide="users" class="w-8 h-8 text-gold"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white mb-2">Seja Investidor</h3>
-                    <p class="text-gray-400 text-sm">Transforme tributos em legado</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contato -->
-    <section id="contato" class="py-32 relative bg-gradient-to-t from-ruby-dark/40 to-obsidian">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-display text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                Restaurando lares,<br>
-                <span class="gradient-text">revitalizando cidades</span>
-            </h2>
             
-            <p class="text-xl text-gray-400 mb-12 leading-relaxed">
-                Transformando tributos num legado de sabedoria e ciência. Entre em contato para parcerias, investimentos ou para cadastrar seu território.
+            <h1 class="serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-600 to-red-800 ruby-text-glow">Mais valioso que rubis</span>
+                <span class="block text-2xl md:text-4xl mt-4 text-gray-300 font-light">Transforme imposto em legado sustentável</span>
+            </h1>
+            
+            <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-400 mb-12 leading-relaxed">
+                Plataforma de facilitação para empresas, bancos e fundos tributários redirecionarem IRPJ devido 
+                <span class="text-red-400 font-semibold">(sem custo extra)</span> para projetos de restauração social, 
+                territórios culturais permanentes e inovação com universidades.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-                <a href="mailto:carvalhojaderson@gmail.com" class="magnetic-btn px-10 py-5 bg-gradient-to-r from-crimson to-ruby text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-crimson/50 transition-all flex items-center justify-center space-x-3">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                    <span>carvalhojaderson@gmail.com</span>
-                </a>
-                
-                <a href="https://wa.me/5531982510633" class="magnetic-btn px-10 py-5 glass-ruby text-white rounded-full font-bold text-lg hover:bg-white/5 transition-all flex items-center justify-center space-x-3 border border-crimson/30">
-                    <i data-lucide="phone" class="w-5 h-5"></i>
-                    <span>(31) 98251-0633</span>
-                </a>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="scrollToSection('cadastro')" class="btn-primary px-8 py-4 rounded-full text-white font-semibold text-lg flex items-center gap-2 group">
+                    Cadastrar Projeto
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </button>
+                <button onclick="scrollToSection('apoiar')" class="px-8 py-4 rounded-full border-2 border-red-600 text-red-500 hover:bg-red-600 hover:text-white transition-all font-semibold text-lg">
+                    Quero Apoiar
+                </button>
             </div>
             
-            <div class="glass-ruby rounded-2xl p-8 inline-block border border-gold/20">
-                <p class="text-gold font-serif italic text-lg mb-4">"Sabedoria Prática ESG"</p>
-                <div class="flex items-center justify-center space-x-6 text-sm text-gray-400">
-                    <span>Belo Horizonte, MG</span>
-                    <span class="w-1 h-1 bg-crimson rounded-full"></span>
-                    <span>Brasil</span>
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="glass-panel p-6 rounded-2xl scroll-reveal">
+                    <div class="text-3xl font-bold text-red-500 mb-2">60-100%</div>
+                    <div class="text-sm text-gray-400">PD&I com parcerias acadêmicas</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl scroll-reveal">
+                    <div class="text-3xl font-bold text-red-500 mb-2">0%</div>
+                    <div class="text-sm text-gray-400">Custo extra para empresa</div>
+                </div>
+                <div class="glass-panel p-6 rounded-2xl scroll-reveal">
+                    <div class="text-3xl font-bold text-red-500 mb-2">100%</div>
+                    <div class="text-sm text-gray-400">Destinação legal do IRPJ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mechanism Section -->
+    <section id="sobre" class="py-24 relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-16 scroll-reveal">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-6 text-white">Mecanismo de Transformação</h2>
+                <p class="text-xl text-gray-400">Imposto em Impacto</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="glass-panel p-8 rounded-2xl scroll-reveal relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl group-hover:bg-red-600/20 transition-all"></div>
+                    <div class="w-16 h-16 ruby-gradient rounded-2xl flex items-center justify-center mb-6 text-2xl font-bold text-white">01</div>
+                    <h3 class="serif text-2xl font-bold mb-4 text-white">Lei de Incentivo ao Esporte</h3>
+                    <p class="text-gray-400 leading-relaxed">Destinação direta via legislação vigente, transformando obrigação tributária em investimento social.</p>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-2xl scroll-reveal relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl group-hover:bg-red-600/20 transition-all"></div>
+                    <div class="w-16 h-16 ruby-gradient rounded-2xl flex items-center justify-center mb-6 text-2xl font-bold text-white">02</div>
+                    <h3 class="serif text-2xl font-bold mb-4 text-white">FIA (Criança/Adolescente)</h3>
+                    <p class="text-gray-400 leading-relaxed">Fundo da Infância e Adolescência para projetos de proteção e desenvolvimento de jovens em vulnerabilidade.</p>
+                </div>
+                
+                <div class="glass-panel p-8 rounded-2xl scroll-reveal relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-2xl group-hover:bg-red-600/20 transition-all"></div>
+                    <div class="w-16 h-16 ruby-gradient rounded-2xl flex items-center justify-center mb-6 text-2xl font-bold text-white">03</div>
+                    <h3 class="serif text-2xl font-bold mb-4 text-white">Incentivo à Cultura</h3>
+                    <p class="text-gray-400 leading-relaxed">Rouanet e outras leis de incentivo para territórios culturais permanentes e produção artística.</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 max-w-4xl mx-auto glass-panel p-8 rounded-2xl scroll-reveal border-l-4 border-red-600">
+                <div class="flex items-start gap-6">
+                    <div class="quote-mark serif">"</div>
+                    <div>
+                        <p class="text-lg md:text-xl text-gray-300 italic mb-4">Mais preciosa é do que os rubis, e tudo o que mais possas desejar não se pode comparar a ela.</p>
+                        <p class="text-red-400 font-semibold">Provérbios 31</p>
+                        <p class="text-sm text-gray-500 mt-2">Inspirados por essa verdade atemporal, transformamos capital financeiro em riqueza inestimável e verdadeira.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Territories Section -->
+    <section id="territorios" class="py-24 bg-black/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="serif text-4xl md:text-5xl font-bold mb-6">Territórios Culturais Permanentes</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Espaços físicos de transformação social, combinando estrutura fixa com alma nômade</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Territory 1 -->
+                <div class="territory-card rounded-2xl overflow-hidden scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-purple-900 to-red-900 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">ATIVO</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="serif text-2xl font-bold mb-2 text-white">Território Águia</h3>
+                        <p class="text-red-400 text-sm mb-4">Mulheres que Voam</p>
+                        <p class="text-gray-400 text-sm mb-4">Espaço gerido por mulheres líderes de comunidades, oferecendo rodas de conversa terapêuticas, atendimento a vítimas de violência e formação profissional.</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Horta Hidropônica</span>
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Empreendedorismo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Territory 2 -->
+                <div class="territory-card rounded-2xl overflow-hidden scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-blue-900 to-red-900 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">ATIVO</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="serif text-2xl font-bold mb-2 text-white">Guardião Corpo</h3>
+                        <p class="text-red-400 text-sm mb-4">Homens Guardiões</p>
+                        <p class="text-gray-400 text-sm mb-4">Três domos geodésicos: parkour/Krav Maga/arqueria, biblioteca viva e incubadora cultural. Parceria com IA da Unicamp para análise biomecânica.</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Parkour</span>
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Krav Maga</span>
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Empreendedorismo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Territory 3 -->
+                <div class="territory-card rounded-2xl overflow-hidden scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-yellow-900 to-red-900 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-xs font-bold">EXPANSÃO</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="serif text-2xl font-bold mb-2 text-white">Território Sonoro</h3>
+                        <p class="text-red-400 text-sm mb-4">Música e Produção</p>
+                        <p class="text-gray-400 text-sm mb-4">Estúdios de produção profissional, aulas de instrumentos diversos e plataforma para eventos comunitários. Transformando talento em renda.</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Estúdio</span>
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Eventos</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Territory 4 -->
+                <div class="territory-card rounded-2xl overflow-hidden scroll-reveal group">
+                    <div class="h-48 bg-gradient-to-br from-green-900 to-red-900 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white/20" fill="currentColor" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-xs font-bold">EXPANSÃO</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="serif text-2xl font-bold mb-2 text-white">Território Digital</h3>
+                        <p class="text-red-400 text-sm mb-4">Games e Audiovisual</p>
+                        <p class="text-gray-400 text-sm mb-4">Laboratório de desenvolvimento de games, estúdios de gravação 4K e programa de residência artística para criadores emergentes.</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Games</span>
+                            <span class="px-3 py-1 bg-red-900/30 text-red-400 rounded-full text-xs">Audiovisual</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Territory 5 -->
+                <div class="territory-card rounded-2xl overflow-hidden scroll-reveal group md:col-span-2 lg:col-span-2">
+                    <div class="h-48 bg-gradient-to-r from-red-900 via-purple-900 to-red-900 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <h3 class="serif text-3xl text-white/30 font-bold">ZONA LESTE SP</h3>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">NOVO</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <div>
+                                <h3 class="serif text-2xl font-bold text-white">Centro Cultural Zona Leste</h3>
+                                <p class="text-red-400 text-sm">São Paulo</p>
+                            </div>
+                            <div class="mt-4 md:mt-0 text-right">
+                                <div class="text-2xl font-bold text-white">400m²</div>
+                                <div class="text-xs text-gray-500">Estrutura padronizada</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-4">Centro cultural permanente estrategicamente localizado na Zona Leste de São Paulo. Infraestrutura completa com 3 domos geodésicos, horta hidropônica, sistema de energia solar e bicicletas geradoras.</p>
+                        <div class="grid grid-cols-3 gap-4 mt-4">
+                            <div class="text-center p-3 bg-white/5 rounded-lg">
+                                <div class="text-red-500 font-bold">3</div>
+                                <div class="text-xs text-gray-500">Domos</div>
+                            </div>
+                            <div class="text-center p-3 bg-white/5 rounded-lg">
+                                <div class="text-red-500 font-bold">100%</div>
+                                <div class="text-xs text-gray-500">Sustentável</div>
+                            </div>
+                            <div class="text-center p-3 bg-white/5 rounded-lg">
+                                <div class="text-red-500 font-bold">24/7</div>
+                                <div class="text-xs text-gray-500">Comunidade</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="cadastro" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 scroll-reveal">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-900/30 border border-red-600/30 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                        <span class="text-red-400 text-sm font-semibold">NOVOS PROJETOS</span>
+                    </div>
+                    <h2 class="serif text-4xl md:text-5xl font-bold mb-6">Cadastre seu Projeto</h2>
+                    <p class="text-gray-400 text-lg">Tem uma iniciativa de impacto social? Junte-se ao ecossistema Sabedoria Prática.</p>
+                </div>
+                
+                <div class="glass-panel rounded-3xl p-8 md:p-12 scroll-reveal">
+                    <form id="projectForm" class="space-y-8" onsubmit="handleProjectSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Nome do Projeto</label>
+                                <input type="text" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="Ex: Território Cultural Norte">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Tipo de Projeto</label>
+                                <select class="input-field w-full px-4 py-3 rounded-xl text-white bg-transparent">
+                                    <option value="" class="bg-gray-900">Selecione...</option>
+                                    <option value="cultural" class="bg-gray-900">Território Cultural</option>
+                                    <option value="esporte" class="bg-gray-900">Projeto Esportivo</option>
+                                    <option value="educacao" class="bg-gray-900">Educação</option>
+                                    <option value="saude" class="bg-gray-900">Saúde/Mulher</option>
+                                    <option value="tecnologia" class="bg-gray-900">Tecnologia/Inovação</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Responsável</label>
+                                <input type="text" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="Nome completo">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Email</label>
+                                <input type="email" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="contato@projeto.org">
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-300">Descrição do Impacto</label>
+                            <textarea rows="4" class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600 resize-none" placeholder="Descreva como seu projeto transforma vidas e comunidades..."></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Público Beneficiado</label>
+                                <input type="number" class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="Número estimado">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">Cidade/Estado</label>
+                                <input type="text" class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="São Paulo/SP">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-300">CNPJ (se houver)</label>
+                                <input type="text" class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600" placeholder="00.000.000/0000-00">
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-gray-800">
+                            <div class="flex items-start gap-3 mb-6">
+                                <input type="checkbox" required class="mt-1 w-5 h-5 rounded border-gray-600 text-red-600 focus:ring-red-600 bg-gray-800">
+                                <label class="text-sm text-gray-400">Declaro que as informações são verdadeiras e autorizo o contato para análise de viabilidade de parceria.</label>
+                            </div>
+                            
+                            <button type="submit" class="w-full btn-primary py-4 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-2">
+                                <span>Enviar Cadastro</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="apoiar" class="py-24 bg-black/50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 scroll-reveal">
+                    <h2 class="serif text-4xl md:text-5xl font-bold mb-6">Seja um Apoiador</h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Empresas e bancos podem destinar IRPJ devido para projetos certificados sem custo operacional adicional.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8 scroll-reveal">
+                        <div class="glass-panel p-6 rounded-2xl border-l-4 border-red-600">
+                            <h3 class="serif text-2xl font-bold mb-3 text-white">Para Empresas</h3>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Assessoria exclusiva de destinação fiscal</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Relatórios de impacto ESG mensuráveis</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Posicionamento como líder em sustentabilidade</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Fidelização de clientes PJ</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="glass-panel p-6 rounded-2xl border-l-4 border-yellow-600">
+                            <h3 class="serif text-2xl font-bold mb-3 text-white">Para Bancos</h3>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Produto de valor agregado para carteira PJ</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Receita indireta via facilitação</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                    <span>Cumprimento de metas sociais do Banco Central</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel rounded-3xl p-8 scroll-reveal">
+                        <h3 class="serif text-2xl font-bold mb-6 text-center">Simule sua Destinação</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-sm text-gray-400 mb-2 block">Valor do IRPJ Devido (R$)</label>
+                                <input type="range" min="100000" max="10000000" step="100000" value="1000000" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-red-600" id="irpjRange" oninput="updateSimulation(this.value)">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>R$ 100k</span>
+                                    <span class="text-red-400 font-bold text-lg" id="irpjValue">R$ 1.000.000</span>
+                                    <span>R$ 10M</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                    <span class="text-gray-400">Destinação máxima (6%)</span>
+                                    <span class="text-2xl font-bold text-red-500" id="destinacaoValor">R$ 60.000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                    <span class="text-gray-400">Vidas impactadas (est.)</span>
+                                    <span class="text-2xl font-bold text-green-500" id="vidasImpactadas">120</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white/5 rounded-xl">
+                                    <span class="text-gray-400">Retorno ESG Score</span>
+                                    <span class="text-2xl font-bold text-yellow-500">A+</span>
+                                </div>
+                            </div>
+                            
+                            <button onclick="openModal('contactModal')" class="w-full btn-primary py-4 rounded-xl text-white font-bold text-lg mt-6">
+                                Falar com Consultor
+                            </button>
+                            
+                            <p class="text-xs text-gray-500 text-center mt-4">*Valores estimados. Consulte nossa equipe para análise detalhada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners & Universities -->
+    <section class="py-24">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="serif text-3xl md:text-4xl font-bold mb-4">Parcerias Acadêmicas</h2>
+                <p class="text-gray-400">Excelência técnica e inovação contínua</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <div class="flex flex-col items-center gap-2 scroll-reveal">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold text-white">UNICAMP</div>
+                    <span class="text-sm text-gray-500">IA & Biomecânica</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 scroll-reveal">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold text-white">PUC</div>
+                    <span class="text-sm text-gray-500">Gestão Social</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 scroll-reveal">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold text-white">ESPM</div>
+                    <span class="text-sm text-gray-500">Inovação</span>
+                </div>
+                <div class="flex flex-col items-center gap-2 scroll-reveal">
+                    <div class="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center text-2xl font-bold text-white">USP</div>
+                    <span class="text-sm text-gray-500">Pesquisa Aplicada</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-crimson/20 bg-obsidian py-16">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="beast-frame w-12 h-12 flex items-center justify-center">
-                            <i data-lucide="gem" class="text-gold w-6 h-6"></i>
+    <footer class="bg-black border-t border-red-900/20 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 ruby-gradient rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>
                         </div>
-                        <div>
-                            <span class="text-xl font-display font-bold text-white block tracking-wider">SABEDORIA</span>
-                            <span class="text-xs text-crimson font-bold tracking-widest">PRÁTICA ESG</span>
-                        </div>
+                        <span class="serif text-xl font-bold text-white">Sabedoria Prática ESG</span>
                     </div>
-                    <p class="text-gray-500 mb-6 max-w-md">
-                        Transformando obrigações tributárias em legado cultural e desenvolvimento humano através de Territórios Culturais Permanentes.
+                    <p class="text-gray-500 text-sm max-w-md">
+                        Transformando impostos em legado sustentável. Mais precioso que rubis, 
+                        construímos territórios culturais permanentes que geram impacto mensurável e duradouro.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full glass-ruby flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-all">
-                            <i data-lucide="linkedin" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full glass-ruby flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-all">
-                            <i data-lucide="instagram" class="w-5 h-5"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full glass-ruby flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/50 transition-all">
-                            <i data-lucide="youtube" class="w-5 h-5"></i>
-                        </a>
-                    </div>
                 </div>
                 
                 <div>
-                    <h4 class="text-white font-bold mb-6 font-display">Navegação</h4>
-                    <ul class="space-y-3 text-gray-500">
-                        <li><a href="#visao" class="hover:text-gold transition-colors">A Visão</a></li>
-                        <li><a href="#territorios" class="hover:text-gold transition-colors">Territórios</a></li>
-                        <li><a href="#mulheres" class="hover:text-gold transition-colors">Liderança Feminina</a></li>
-                        <li><a href="#pilares" class="hover:text-gold transition-colors">3 Pilares</a></li>
-                        <li><a href="#hub" class="hover:text-gold transition-colors">Hub Aberto</a></li>
+                    <h4 class="text-white font-semibold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#sobre" class="hover:text-red-500 transition-colors">Sobre nós</a></li>
+                        <li><a href="#territorios" class="hover:text-red-500 transition-colors">Territórios</a></li>
+                        <li><a href="#cadastro" class="hover:text-red-500 transition-colors">Cadastrar Projeto</a></li>
+                        <li><a href="#apoiar" class="hover:text-red-500 transition-colors">Seja Apoiador</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-white font-bold mb-6 font-display">Parceiros</h4>
-                    <ul class="space-y-3 text-gray-500 text-sm">
-                        <li>Ministério da Cultura</li>
-                        <li>UNICAMP</li>
-                        <li>PUC</li>
-                        <li>ESPM</li>
-                        <li>Incentiv.me</li>
-                        <li>Ecossistema Disruptivos</li>
+                    <h4 class="text-white font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li>contato@sabedoriapratica.org</li>
+                        <li>São Paulo, SP - Brasil</li>
+                        <li class="pt-2">
+                            <button onclick="openModal('contactModal')" class="text-red-500 hover:text-red-400 font-medium">Fale Conosco →</button>
+                        </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-crimson/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-600 text-sm">© 2025 Fundo Sabedoria Prática ESG. Todos os direitos reservados.</p>
-                <p class="text-gray-600 text-sm mt-4 md:mt-0 font-display">O Legado da Virtude</p>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-sm">© 2026 Fundo Sabedoria Prática ESG. Todos os direitos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-600 hover:text-red-500 transition-colors">Privacidade</a>
+                    <a href="#" class="text-gray-600 hover:text-red-500 transition-colors">Termos</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-8 max-w-md w-full relative transform scale-95 opacity-0 transition-all duration-300" id="contactModalContent">
+            <button onclick="closeModal('contactModal')" class="absolute top-4 right-4 text-gray-500 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            
+            <h3 class="serif text-2xl font-bold mb-2 text-white">Fale com um Consultor</h3>
+            <p class="text-gray-400 text-sm mb-6">Preencha seus dados e nossa equipe entrará em contato em até 24h.</p>
+            
+            <form class="space-y-4" onsubmit="handleContactSubmit(event)">
+                <input type="text" placeholder="Nome completo" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600">
+                <input type="email" placeholder="Email corporativo" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600">
+                <input type="text" placeholder="Empresa" class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600">
+                <select class="input-field w-full px-4 py-3 rounded-xl text-white bg-transparent">
+                    <option value="" class="bg-gray-900">Interesse...</option>
+                    <option value="empresa" class="bg-gray-900">Destinar IRPJ (Empresa)</option>
+                    <option value="banco" class="bg-gray-900">Parceria (Banco)</option>
+                    <option value="projeto" class="bg-gray-900">Cadastrar Projeto</option>
+                </select>
+                <button type="submit" class="w-full btn-primary py-3 rounded-xl text-white font-bold">Solicitar Contato</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal items-center justify-center p-4">
+        <div class="glass-panel rounded-3xl p-8 max-w-md w-full relative transform scale-95 opacity-0 transition-all duration-300" id="loginModalContent">
+            <button onclick="closeModal('loginModal')" class="absolute top-4 right-4 text-gray-500 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 ruby-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>
+                </div>
+                <h3 class="serif text-2xl font-bold text-white">Área Restrita</h3>
+                <p class="text-gray-400 text-sm">Acesso para parceiros e gestores de projetos</p>
+            </div>
+            
+            <form class="space-y-4" onsubmit="handleLogin(event)">
+                <input type="email" placeholder="Email" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600">
+                <input type="password" placeholder="Senha" required class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-600">
+                <div class="flex justify-between text-sm">
+                    <label class="flex items-center gap-2 text-gray-400">
+                        <input type="checkbox" class="rounded border-gray-600 text-red-600 focus:ring-red-600 bg-gray-800"> Lembrar-me
+                    </label>
+                    <a href="#" class="text-red-500 hover:text-red-400">Esqueci a senha</a>
+                </div>
+                <button type="submit" class="w-full btn-primary py-3 rounded-xl text-white font-bold">Entrar</button>
+            </form>
+            
+            <div class="mt-6 pt-6 border-t border-gray-800 text-center">
+                <p class="text-sm text-gray-500">Ainda não tem acesso? <a href="#cadastro" onclick="closeModal('loginModal')" class="text-red-500 hover:text-red-400">Cadastre-se</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="notification" class="fixed bottom-4 right-4 transform translate-y-20 opacity-0 transition-all duration-500 z-50">
+        <div class="glass-panel px-6 py-4 rounded-2xl border-l-4 border-green-500 flex items-center gap-3">
+            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <div>
+                <h4 class="text-white font-semibold" id="notificationTitle">Sucesso!</h4>
+                <p class="text-gray-400 text-sm" id="notificationText">Operação realizada com sucesso.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Initialize Lucide
-        lucide.createIcons();
-
-        // Custom Cursor
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
-        });
-        
-        document.querySelectorAll('a, button, .territory-card').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
-        });
-
-        // GSAP Animations
+        // Initialize GSAP ScrollTrigger
         gsap.registerPlugin(ScrollTrigger);
-
-        // Hero Animation
-        gsap.from('.reveal-text', {
-            y: 100,
-            opacity: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "power4.out"
-        });
-
-        // Counter Animation
-        document.querySelectorAll('.counter').forEach(counter => {
-            const target = parseFloat(counter.dataset.target);
-            const isDecimal = counter.dataset.decimal === 'true';
-            
-            ScrollTrigger.create({
-                trigger: counter,
-                start: "top 85%",
-                once: true,
-                onEnter: () => {
-                    gsap.to(counter, {
-                        innerHTML: target,
-                        duration: 2,
-                        snap: { innerHTML: isDecimal ? 0.1 : 1 },
-                        ease: "power2.out",
-                        onUpdate: function() {
-                            counter.innerHTML = isDecimal ? 
-                                parseFloat(this.targets()[0].innerHTML).toFixed(1) : 
-                                Math.ceil(this.targets()[0].innerHTML);
-                        }
-                    });
-                }
-            });
-        });
-
-        // Scroll Reveal
-        gsap.utils.toArray('.territory-card').forEach((card, i) => {
-            gsap.from(card, {
+        
+        // Scroll reveal animations
+        gsap.utils.toArray('.scroll-reveal').forEach((element, i) => {
+            gsap.to(element, {
                 scrollTrigger: {
-                    trigger: card,
+                    trigger: element,
                     start: "top 85%",
                     toggleActions: "play none none reverse"
                 },
-                y: 60,
-                opacity: 0,
-                duration: 1,
-                delay: i * 0.1,
-                ease: "power3.out"
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                delay: i * 0.1
             });
         });
-
-        // Mobile Menu
-        const menuToggle = document.getElementById('menuToggle');
-        const menuMobile = document.querySelector('.menu-mobile');
         
-        menuToggle.addEventListener('click', () => {
-            menuMobile.classList.toggle('active');
-        });
-
-        // Navbar Scroll Effect
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('bg-obsidian/90', 'backdrop-blur-md');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/90', 'shadow-lg', 'shadow-red-900/10');
             } else {
-                navbar.classList.remove('bg-obsidian/90', 'backdrop-blur-md');
+                navbar.classList.remove('bg-black/90', 'shadow-lg', 'shadow-red-900/10');
             }
         });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    menuMobile.classList.remove('active');
-                }
-            });
-        });
-
-        // Magnetic Buttons
-        document.querySelectorAll('.magnetic-btn').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-            });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('translate-x-full');
+        }
+        
+        // Modal functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + 'Content');
+            modal.classList.add('active');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(modalId + 'Content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.remove('active');
+            }, 300);
+        }
+        
+        // Close modal on outside click
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal(event.target.id);
+            }
+        }
+        
+        // Smooth scroll
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Simulation calculator
+        function updateSimulation(value) {
+            const formatted = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
+            document.getElementById('irpjValue').textContent = formatted;
             
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0, 0)';
-            });
-        });
+            const destinacao = value * 0.06;
+            document.getElementById('destinacaoValor').textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(destinacao);
+            
+            const vidas = Math.floor(destinacao / 500);
+            document.getElementById('vidasImpactadas').textContent = vidas;
+        }
+        
+        // Form handlers
+        function showNotification(title, text) {
+            const notif = document.getElementById('notification');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationText').textContent = text;
+            notif.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                notif.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+        
+        function handleProjectSubmit(e) {
+            e.preventDefault();
+            showNotification('Projeto Cadastrado!', 'Nossa equipe analisará sua proposta e entrará em contato em até 5 dias úteis.');
+            e.target.reset();
+        }
+        
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            closeModal('contactModal');
+            showNotification('Solicitação Enviada!', 'Um consultor entrará em contato em até 24 horas.');
+            e.target.reset();
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            closeModal('loginModal');
+            showNotification('Bem-vindo!', 'Redirecionando para sua dashboard...');
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const container = document.body;
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'ruby-particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+                
+                gsap.to(particle, {
+                    y: -100,
+                    x: Math.random() * 100 - 50,
+                    opacity: 0,
+                    duration: Math.random() * 10 + 10,
+                    repeat: -1,
+                    ease: "none",
+                    delay: Math.random() * 5
+                });
+            }
+        }
+        
+        createParticles();
     </script>
 </body>
 </html>
